@@ -36,7 +36,6 @@ abstract class BaseFilter
      * Apply the filters on the data.
      *
      * @param Array $data
-     * @param Request $request
      *
      * @return Array
      */
@@ -44,7 +43,10 @@ abstract class BaseFilter
     {
         $this->data = $data;
 
-        foreach ($this->request->all() as $name => $value) {
+        //$this->getDevExpressFilters();
+        $columnFilters = $this->request->all();
+
+        foreach ($columnFilters as $name => $value) {
             $name = Str::camel($name);
             if (method_exists($this, $name) && $value) {
                 call_user_func_array(

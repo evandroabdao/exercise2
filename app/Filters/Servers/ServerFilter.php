@@ -2,6 +2,7 @@
 
 namespace App\Filters\Servers;
 
+use App\Enums\ColumnsEnum;
 use App\Filters\Base\BaseFilter;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Type\Decimal;
@@ -9,12 +10,6 @@ use Ramsey\Uuid\Type\Integer;
 
 class ServerFilter extends BaseFilter
 {
-    const COLUMN_MODEL = 0;
-    const COLUMN_RAM = 1;
-    const COLUMN_HDD = 2;
-    const COLUMN_LOCATION = 3;
-    const COLUMN_PRICE = 4;
-
     /**
      * Filter servers by any column.
      *
@@ -27,7 +22,7 @@ class ServerFilter extends BaseFilter
         $rows = [];
 
         foreach ($this->data as $row) {
-            $model = Str::of($row[self::COLUMN_MODEL])->toString();
+            $model = Str::of($row[ColumnsEnum::COLUMN_MODEL])->toString();
             if (str_contains($model, $value)) {
                 $rows[] = $row;
             }
@@ -48,11 +43,16 @@ class ServerFilter extends BaseFilter
         $rows = [];
 
         $args = explode(',', $value);
-        $min = self::toGB($args[0]);
-        $max = self::toGB($args[1]);
+        if (count($args)==1) {
+            $min = 0;
+            $max = self::toGB($args[0]);
+        } else {
+            $min = self::toGB($args[0]);
+            $max = self::toGB($args[1]);
+        }
 
         foreach ($this->data as $row) {
-            $totalStorage = self::calculateStorage(Str::of($row[self::COLUMN_HDD])->before(search: 'B')->toString());
+            $totalStorage = self::calculateStorage(Str::of($row[ColumnsEnum::COLUMN_HDD])->before(search: 'B')->toString());
             if ($totalStorage >= $min && $totalStorage <= $max) {
                 $rows[] = $row;
             }
@@ -75,7 +75,7 @@ class ServerFilter extends BaseFilter
         $args = explode(',', $value);
 
         foreach ($this->data as $row) {
-            $column = Str::of($row[self::COLUMN_RAM])->toString();
+            $column = Str::of($row[ColumnsEnum::COLUMN_RAM])->toString();
             foreach ($args as $val) {
                 if (str_starts_with($column, $val)) {
                     $rows[] = $row;
@@ -101,7 +101,7 @@ class ServerFilter extends BaseFilter
         $value = strtoupper($value);
 
         foreach ($this->data as $row) {
-            $model = Str::of($row[self::COLUMN_HDD])->toString();
+            $model = Str::of($row[ColumnsEnum::COLUMN_HDD])->toString();
             if (str_contains($model, $value)) {
                 $rows[] = $row;
             }
@@ -124,7 +124,7 @@ class ServerFilter extends BaseFilter
         $value = strtoupper($value);
 
         foreach ($this->data as $row) {
-            $model = Str::of($row[self::COLUMN_LOCATION])->toString();
+            $model = Str::of($row[ColumnsEnum::COLUMN_LOCATION])->toString();
             if (str_contains(strtoupper($model), $value)) {
                 $rows[] = $row;
             }

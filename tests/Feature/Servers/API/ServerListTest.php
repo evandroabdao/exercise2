@@ -2,16 +2,12 @@
 
 namespace Tests\Feature\Servers\API;
 
+use App\Enums\ColumnsEnum;
 use Tests\TestCase;
 
 class VendorListTest extends TestCase
 {
     const ROUTE_LIST = 'servers.list';
-    const COLUMN_MODEL = 0;
-    const COLUMN_RAM = 1;
-    const COLUMN_HDD = 2;
-    const COLUMN_LOCATION = 3;
-    const COLUMN_PRICE = 4;
 
     /**
      * Setup the test environment.
@@ -69,8 +65,8 @@ class VendorListTest extends TestCase
 
         //Verify if is there any different record from the filter
         foreach ($data as $row) {
-            if (!(str_starts_with($row[self::COLUMN_RAM], $filter2GB) || str_starts_with($row[self::COLUMN_RAM], $filter4GB))) {
-                $this->assertTrue(str_starts_with($row[self::COLUMN_RAM], $filter2GB) || str_starts_with($row[self::COLUMN_RAM], $filter4GB));
+            if (!(str_starts_with($row[ColumnsEnum::COLUMN_RAM], $filter2GB) || str_starts_with($row[ColumnsEnum::COLUMN_RAM], $filter4GB))) {
+                $this->assertTrue(str_starts_with($row[ColumnsEnum::COLUMN_RAM], $filter2GB) || str_starts_with($row[ColumnsEnum::COLUMN_RAM], $filter4GB));
                 continue;
             }
         }
@@ -94,8 +90,8 @@ class VendorListTest extends TestCase
 
         //Verify if is there any different record from the filter
         foreach ($data as $row) {
-            if (!str_contains($row[self::COLUMN_HDD], $filter)) {
-                $this->assertTrue(str_contains($row[self::COLUMN_HDD], $filter));
+            if (!str_contains($row[ColumnsEnum::COLUMN_HDD], $filter)) {
+                $this->assertTrue(str_contains($row[ColumnsEnum::COLUMN_HDD], $filter));
                 continue;
             }
         }
@@ -119,8 +115,8 @@ class VendorListTest extends TestCase
 
         //Verify if is there any different record from the filter
         foreach ($data as $row) {
-            if (!str_contains($row[self::COLUMN_LOCATION], $filter)) {
-                $this->assertTrue(str_contains($row[self::COLUMN_LOCATION], $filter));
+            if (!str_contains($row[ColumnsEnum::COLUMN_LOCATION], $filter)) {
+                $this->assertTrue(str_contains($row[ColumnsEnum::COLUMN_LOCATION], $filter));
                 continue;
             }
         }
