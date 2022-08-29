@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(
-    ['as' => 'servers.', 'prefix' => 'v1/servers', 'namespace' => "API\V1\Servers"],
+    ['as' => 'api.servers.', 'prefix' => 'v1/servers', 'namespace' => "API\V1\Servers"],
     function () {
         Route::get('/list', [ServerController::class, 'list'])
             ->name('list');

@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "8f7ca6d7-7554-40de-80ee-eecba8a935ea",
+		"name": "Exercise2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20795364"
+	},
+	"item": [
+		{
+			"name": "Servers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8989/api/v1/servers/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8989",
+					"path": [
+						"api",
+						"v1",
+						"servers",
+						"list"
+					],
+					"query": [
+						{
+							"key": "storage",
+							"value": "250GB",
+							"disabled": true
+						},
+						{
+							"key": "ram",
+							"value": "2GB,4GB",
+							"disabled": true
+						},
+						{
+							"key": "hdd",
+							"value": "SAS",
+							"disabled": true
+						},
+						{
+							"key": "location",
+							"value": "Hong KongHKG-10",
+							"disabled": true
+						}
+					]
+				},
+				"description": "This API has the possibility to filter within 4 differents arguments.\n\n| **Argument** | **Description** | **Possible Values** |\n| --- | --- | --- |\n| storage | Value of the total storage of the server.  <br>Its possible to send a single value that will filter 0 from the single value passed, or it is possible to send two fo the listed values separeted by comma, so it will be returned the servers between this range. | 0, 250GB, 500GB, 1TB, 2TB, 3TB, 4TB, 8TB, 12TB, 24TB, 48TB, 72TB |\n| ram | This filter can be passed with one or many of the listed values separeted by comma.  <br>This filter is good to use with a checkbox element. | 2GB, 4GB, 8GB, 12GB, 16GB, 24GB, 32GB, 48GB, 64GB, 96GB |\n| hdd | Will filter the type of the harddisk. | SAS, SATA, SSD |\n| location | Will filter the string location passed from a dropdown list. | Refer to Location list |"
+			},
+			"response": []
+		}
+	]
+}

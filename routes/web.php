@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Servers\ServerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// start server routes:
+Route::group(['as' => 'servers.', 'prefix' => 'servers'], function () {
+    Route::get('/', [ServerController::class, 'index'])->name('index');
+});
+Route::resource('servers', ServerController::class);
